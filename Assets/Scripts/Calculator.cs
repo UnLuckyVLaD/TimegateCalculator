@@ -12,10 +12,10 @@ public class Calculator : MonoBehaviour
     public TMP_InputField CurrentStaminaInput;
     // display currentStamina / maxStamina
     public TextMeshProUGUI StaminaText;
-    // hidden display for needed time
-    public TextMeshProUGUI DebugNeedTimeText;
     // display for notification time
     public TextMeshProUGUI AlertTimeText;
+    // hidden display for needed time
+    public TextMeshProUGUI DebugNeedTimeText;
 
     // maxStamina >= 1
     int maxStamina = 1;
@@ -74,7 +74,7 @@ public class Calculator : MonoBehaviour
             currenttime = CurrentTime.Hour * 3600 + CurrentTime.Minute * 60 + CurrentTime.Second;
             time = currenttime - calctime;
             stamina = currentStamina + (time / staminaTime);
-            StaminaText.text = stamina.ToString() + "/" + maxStamina.ToString();
+            StaminaText.text = stamina.ToString() + " / " + maxStamina.ToString();
         }
     }
 
