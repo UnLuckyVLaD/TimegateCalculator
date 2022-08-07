@@ -5,9 +5,10 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
-    public TextMeshProUGUI TimerText;
-    public TextMeshProUGUI DisplayTimerText;
-    //for debug, change later
+    public TextMeshProUGUI DisplayTimeText;
+    /// <summary>
+    /// [debug] change access later
+    /// </summary>
     public float timerTime = 0;
     public bool Enabled = false;
 
@@ -39,11 +40,14 @@ public class Timer : MonoBehaviour
         else Enabled = true;
     }
 
-    public void SetTimerTime()
+    /// <summary>
+    /// Set time for Timer and converts to miliseconds
+    /// </summary>
+    /// <param name="time">time in seconds (usually)</param>
+    public void SetTimerTime(float time)
     {
-        DateTime time = Convert.ToDateTime(TimerText.text);
         //miliseconds
-        timerTime = (time.Hour * 3600 + time.Minute * 60 + time.Second) * 1000;
+        timerTime = time * 1000;
     }
 
     private void DisplayTime(float timeToDisplay)
@@ -54,6 +58,6 @@ public class Timer : MonoBehaviour
             timeToDisplay += 1;
         DateTime time = new DateTime();
         time = time.AddMilliseconds(timeToDisplay);
-        DisplayTimerText.text = time.ToLongTimeString();
+        DisplayTimeText.text = time.ToLongTimeString();
     }
 }

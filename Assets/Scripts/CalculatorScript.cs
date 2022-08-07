@@ -3,7 +3,10 @@ using TMPro;
 using System;
 using UnityEngine.UI;
 
-public class Calculator : MonoBehaviour
+/// <summary>
+/// 
+/// </summary>
+public class CalculatorScript : MonoBehaviour
 {
     // text with last time when chanched variables
     public TextMeshProUGUI DebugCalcTimeText;
@@ -16,6 +19,10 @@ public class Calculator : MonoBehaviour
     public TextMeshProUGUI AlertTimeText;
     // hidden display for needed time
     public TextMeshProUGUI DebugNeedTimeText;
+    // Timer
+    public Timer Timer;
+    // Dialog window with user data
+    public GameObject DialogRect;
 
     // maxStamina >= 1
     int maxStamina = 1;
@@ -24,7 +31,8 @@ public class Calculator : MonoBehaviour
     // not null
     int currentStamina = 0;
     // время нажатия расчета стамины
-    DateTime CalcTime;
+    public DateTime CalcTime;
+    public DateTime AlertTime;
 
 
     /// <summary>
@@ -38,15 +46,25 @@ public class Calculator : MonoBehaviour
             staminaTime = Convert.ToInt32(StaminaTimeInput.text) * 60;
         if (CurrentStaminaInput.text != "")
             currentStamina = Convert.ToInt32(CurrentStaminaInput.text);
-        DateTime maxTime = new DateTime();
-        maxTime = maxTime.AddSeconds(staminaTime * (maxStamina - currentStamina));
-        // display
-        GetCalcTime();
-        DebugNeedTimeText.text = maxTime.ToLongTimeString();
-        int time = maxTime.Hour * 3600 + maxTime.Minute * 60 + maxTime.Second;
-        DateTime AlertTime = DateTime.Now;
-        AlertTime = AlertTime.AddSeconds(time);
-        AlertTimeText.text = AlertTime.ToString();
+        if (currentStamina < maxStamina)
+        {
+            int time = staminaTime * (maxStamina - currentStamina);
+            // display
+            GetCalcTime();
+            DebugNeedTimeText.text = new DateTime().AddSeconds(time).ToLongTimeString();
+            AlertTime = DateTime.Now.AddSeconds(time);
+            AlertTimeText.text = AlertTime.ToString();
+            // timer
+            Timer.SetTimerTime(time);
+            Timer.EnableTimer();
+            // end
+            DialogRect.SetActive(false);
+        }
+        else
+        {
+            CurrentStaminaInput.text = "";
+            CurrentStaminaInput.Select();
+        }
     }
 
     /// <summary>
@@ -58,7 +76,7 @@ public class Calculator : MonoBehaviour
         DebugCalcTimeText.text = CalcTime.ToString();
     }
 
-    
+
     /// <summary>
     /// display Stamina/MaxStamina and Replenish Time
     /// </summary>
@@ -68,17 +86,16 @@ public class Calculator : MonoBehaviour
         {
             CalcTime = Convert.ToDateTime(DebugCalcTimeText.text);
             DateTime CurrentTime = DateTime.Now;
-            int stamina = currentStamina;
             int calctime, currenttime, time;
             calctime = CalcTime.Hour * 3600 + CalcTime.Minute * 60 + CalcTime.Second;
             currenttime = CurrentTime.Hour * 3600 + CurrentTime.Minute * 60 + CurrentTime.Second;
             time = currenttime - calctime;
-            stamina = currentStamina + (time / staminaTime);
+            int stamina = currentStamina + (time / staminaTime);
             StaminaText.text = stamina.ToString() + " / " + maxStamina.ToString();
         }
     }
 
-    private void Update()
+    void Update()
     {
         DisplayStamina();
     }

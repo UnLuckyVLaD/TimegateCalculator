@@ -5,10 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/TimeGateCalculator.unity
+    guid: 92d997b59ecd88c44a7f2359f3ae083b
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 7b9233444dcf92542a547622be1170d7, type: 2}
     com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000, guid: c0ea66b7da9c8204486de9660ea23fa7, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: dfef4cdb557ac7241aa498f975e41a96, type: 2}
+    com.unity.addressableassets: {fileID: 11400000, guid: 973d14050bddba849ab148dc56ee1e8c, type: 2}
+    com.unity.localization.settings: {fileID: 11400000, guid: 71f8736ec42939c4f8bee946bd7f883e, type: 2}
